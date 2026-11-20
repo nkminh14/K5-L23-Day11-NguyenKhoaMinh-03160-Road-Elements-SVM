@@ -17,7 +17,7 @@ Cách đặt tag ảnh trên bản CVAT này: Chọn công cụ **Tag** ở than
 ## 2. Số lượng đã gán
 | Task | Ảnh | lane | road_curb | crosswalk | drivable | traffic_light | traffic_sign |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| front | 12 | 29 | 2 | 2 | 15 | 7 | 6 |
+| front | 12 | 29 | 2 | 2 | 15 | 6 | 6 |
 | front-extra (đã làm 0 / 4) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | fisheye | 8 | 12 | 2 | 4 | 8 | 1 | 1 |
 | fisheye-extra (đã làm 0 / 4) | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -27,7 +27,7 @@ Cách đặt tag ảnh trên bản CVAT này: Chọn công cụ **Tag** ở than
 | --- | --- | --- | --- | --- |
 | A03 | `lane#0` (`L1`) | Dừng polyline trước thân xe che khuất rồi vẽ đoạn mới hay vẽ xuyên qua vật che | Vẽ 1 polyline liền xuyên qua và bật `occluded = true` | Theo Guideline mục 3 (Làn): đoạn bị che ngắn bởi xe/người phải nối liền qua chỗ che và bật cờ `occluded`, không được dừng trước vật che hay tách làm 2 polyline. |
 | A04 | `drivable` (`direct` vs `alternative`) | Có gộp phần sát lề phải hoặc làn bên trái vạch vàng đôi vào `direct` không | Tách riêng `direct` cho làn đang đi và `alternative` cho làn cùng chiều kế bên; bỏ dải đỗ xe sát lề | Theo Guideline mục 3 (Vùng lái): dải đỗ xe sát lề có chức năng dừng/đỗ nên không tính vào `direct`; làn bên cạnh đi được thì gán polygon riêng với `area_type = alternative`. |
-| A08 | `traffic_light#5@(300,230)` & `traffic_light#6@(950,260)` | Đèn quay ngang không nhìn rõ bóng sáng (`off` hay `unknown`); đèn nhỏ ở xa cao ~6 px có gán không | Đèn ngang chọn `facing = side`, `color = unknown`; đèn nhỏ ở xa vẫn gán `red` | Đèn quay ngang bị khuất chóa không xác định chắc chắn đang tắt hay sáng nên gán `unknown` an toàn hơn `off`; cụm đèn nhỏ ở xa (< 8 px) không bắt buộc nhưng nhìn rõ màu đỏ nên vẫn vẽ box sát vỏ. |
+| A08 | `traffic_light#5@(300,230)` & cụm đèn nhỏ ở xa `(950,260)` | Đèn quay ngang không nhìn rõ bóng sáng (`off` hay `unknown`); đèn nhỏ ở xa cao ~6 px (< 8 px) có gán không | Đèn ngang chọn `facing = side`, `color = unknown`; bỏ qua đèn nhỏ 6 px (< ngưỡng 8 px bắt buộc) | Đèn quay ngang bị khuất chóa không xác định chắc chắn đang tắt hay sáng nên gán `unknown` an toàn hơn `off`; cụm đèn nhỏ ở xa chỉ cao 6 px (< 8 px) nên không gán theo đúng Guideline mục 3 để tránh cảnh báo `lint`. |
 | A10 | `traffic_sign#4@(1000,342)` | Gộp tấm biển chữ nhật nhỏ bên dưới vào chung 1 box với biển chính phía trên hay tách riêng | Tách thành 2 box riêng: biển chính `group = prohibitory`, tấm nhỏ bên dưới `group = supplementary` | Theo Guideline mục 3 (Đèn và biển): biển phụ (tấm nhỏ dưới biển chính) bắt buộc phải có hộp chữ nhật riêng với `group = supplementary`. |
 | B02 | `traffic_light#3` & `traffic_sign#4` | Tâm box nằm gần viền cong của ống kính fisheye có cần bật `edge_zone` không | Bật `edge_zone = true` cho cả hai box | Khoảng cách từ tâm ảnh `(640, 483)` tới tâm hai box lần lượt khoảng `680 px` và `646 px`, đều lớn hơn 80% bán kính ngang (`0.8 * 640 = 512 px`) nên phải bật `edge_zone`. |
 | B05–B08 | `lane#0` trên camera `MVL` / `MVR` | Gán `position = L1 / R1` theo hướng nhìn của camera hông hay gán `other` | Chọn `position = other` cho mọi vạch làn trên ảnh `B05, B06, B07, B08` | Theo Guideline mục 4 (Fisheye): `L1/R1/L2/R2` chỉ dùng cho `fisheye_front` và `fisheye_rear`; trên camera hai bên (`fisheye_left`, `fisheye_right`) luôn phải đặt `position = other`. |
@@ -48,14 +48,14 @@ Bạn kiểm lô của tôi: `tranhoangan`  Quyết định nhận được: **R
 | `minhnk-fisheye.zip` | Có (`lint` 0 lỗi nặng, 0 lỗi chính) | `B01`: 4 / 4 (`2 lane, 1 drivable, 1 crosswalk`) | `B02`: 5 / 5 (`2 lane, 1 drivable, 1 traffic_light, 1 traffic_sign`) | Có (`fisheye_front`, `fisheye_rear`, `fisheye_left`, `fisheye_right`) |
 
 ## 6. Ảnh chụp màn hình
-1. **Tab Labels của project trên CVAT (6 label hình + 4 label tag):**  
-   ![Tab Labels của project](docs/images/huong-dan-cvat/02-project-task.jpg)
-2. **Ảnh camera trước đã gán đủ (4 tag, polyline làn L1/R1/L2, vùng lái `direct` và `alternative`):**  
-   ![Ảnh camera trước đã gán](docs/images/huong-dan-cvat/11-drivable-alternative.jpg)
-3. **Kiểm tra trạng thái Job `completed` và hộp thoại Export `CVAT for images 1.1` (tắt `Save images`):**  
-   ![Job completed](docs/images/huong-dan-cvat/15-job-completed.jpg)  
-   ![Export CVAT for images 1.1](docs/images/huong-dan-cvat/13-export-dialog.jpg)
-4. **Đoạn XML thực tế trích từ `annotations.xml` trong `minhnk-front.zip` và `minhnk-fisheye.zip` (có `<polyline label="lane">` và đoạn polyline cong 9 điểm trên ảnh fisheye `B01`):**
+1. **Tab Labels của project `d11-road-nkminh14` trên CVAT (6 label hình + 4 label tag):**  
+   ![Tab Labels của project](docs/images/report-minhnk/01-project-labels.jpg)
+2. **Một ảnh camera trước đã gán đủ (`A12_synthetic.jpg`: làn `L1, R1, L2`, vùng lái `direct` & `alternative`, `crosswalk`, `road_curb`, hộp `traffic_light` và `traffic_sign`):**  
+   ![Ảnh camera trước đã gán đủ](docs/images/report-minhnk/02-front-A12-full.jpg)
+3. **Một ảnh fisheye đã gán (`B02_03177_FV.png`), phóng to 250% đoạn polyline cong 9 điểm (`P1 → P9`) và hộp đèn/biển bật `edge_zone` ngoài 80% bán kính:**  
+   ![Ảnh fisheye phóng to đoạn polyline cong](docs/images/report-minhnk/03-fisheye-B02-curve-zoom.jpg)
+4. **Một đoạn XML có `<polyline label="lane">` trích từ `annotations.xml` trong `minhnk-front.zip` và `minhnk-fisheye.zip`:**  
+   ![Đoạn XML có polyline label lane](docs/images/report-minhnk/04-xml-polyline-lane.jpg)
    ```xml
    <!-- Trích từ minhnk-front.zip (A01) -->
    <polyline label="lane" source="manual" occluded="0" z_order="0" points="450.56,714.69;478.60,644.18;514.54,572.34;561.75,501.41;615.05,429.68">
