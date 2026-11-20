@@ -50,23 +50,23 @@ Bạn kiểm lô của tôi: `tranhoangan`  Quyết định nhận được: **R
 ## 6. Ảnh chụp màn hình
 1. **Tab Labels của project `d11-road-nkminh14` trên CVAT (6 label hình + 4 label tag):**  
    ![Tab Labels của project](docs/images/report-minhnk/01-project-labels.jpg)
-2. **Một ảnh camera trước đã gán đủ (`A12_synthetic.jpg`: làn `L1, R1, L2`, vùng lái `direct` & `alternative`, `crosswalk`, `road_curb`, hộp `traffic_light` và `traffic_sign`):**  
+2. **Một ảnh camera trước đã gán đủ (`A12_c0f978fa-9b4e623f.jpg`: làn `L1, R1, L2`, vùng lái `direct` & `alternative`, `crosswalk`, `road_curb`, hộp `traffic_light` và `traffic_sign`):**  
    ![Ảnh camera trước đã gán đủ](docs/images/report-minhnk/02-front-A12-full.jpg)
 3. **Một ảnh fisheye đã gán (`B02_03177_FV.png`), phóng to 250% đoạn polyline cong 9 điểm (`P1 → P9`) và hộp đèn/biển bật `edge_zone` ngoài 80% bán kính:**  
    ![Ảnh fisheye phóng to đoạn polyline cong](docs/images/report-minhnk/03-fisheye-B02-curve-zoom.jpg)
 4. **Một đoạn XML có `<polyline label="lane">` trích từ `annotations.xml` trong `nguyenkhoaminh-front.zip` và `nguyenkhoaminh-fisheye.zip`:**  
    ![Đoạn XML có polyline label lane](docs/images/report-minhnk/04-xml-polyline-lane.jpg)
    ```xml
-   <!-- Trích từ nguyenkhoaminh-front.zip (A01) -->
-   <polyline label="lane" source="manual" occluded="0" z_order="0" points="450.56,714.69;478.60,644.18;514.54,572.34;561.75,501.41;615.05,429.68">
+   <!-- Trích từ nguyenkhoaminh-front.zip (A01_bc5fadac-fa6dd225.jpg) -->
+   <polyline label="lane" source="manual" occluded="0" z_order="0" points="451.73,715.26;479.95,644.61;512.71,572.99;559.95,501.40;614.74,430.60">
      <attribute name="position">L1</attribute>
      <attribute name="style">dashed</attribute>
      <attribute name="color">white</attribute>
      <attribute name="kind">single</attribute>
    </polyline>
 
-   <!-- Trích từ nguyenkhoaminh-fisheye.zip (B01 - polyline cong 9 điểm bám theo cung fisheye) -->
-   <polyline label="lane" source="manual" occluded="0" z_order="0" points="515.10,826.54;520.90,794.00;527.14,761.03;534.33,729.00;543.73,696.42;553.03,665.29;564.33,634.09;579.89,603.78;593.02,573.92">
+   <!-- Trích từ nguyenkhoaminh-fisheye.zip (B01_02688_FV.png - polyline cong 9 điểm bám theo cung fisheye) -->
+   <polyline label="lane" source="manual" occluded="0" z_order="0" points="515.06,827.40;523.02,793.70;529.96,763.03;536.91,730.87;545.04,700.10;554.86,667.23;568.75,637.43;581.30,607.38;594.09,577.66">
      <attribute name="position">L1</attribute>
      <attribute name="style">dashed</attribute>
      <attribute name="color">white</attribute>
@@ -87,7 +87,7 @@ Bạn kiểm lô của tôi: `tranhoangan`  Quyết định nhận được: **R
 Chạy kiểm tra trên ảnh `A01`, vạch `R1` (`lane#1@(832,714)`, nối từ `y = 713.6` lên `y = 431.4`):
 | y | 720 | 680 | 640 | 600 | 560 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| x của chúng tôi (`nguyenkhoaminh`) | không có làn (tại `y=713.6` là `832.1`) | 803.8 | 771.9 | 748.2 | 724.6 |
+| x của chúng tôi (`nguyenkhoaminh`) | không có làn (tại `y=713.6` là `832.1`) | 804.0 | 774.0 | 748.5 | 724.2 |
 | x của bạn kia (`tranhoangan`) | không có làn (tại `y=715.1` là `830.8`) | 804.0 | 773.5 | 747.8 | 723.6 |
 
 Trả lời 3 câu:
