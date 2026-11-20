@@ -84,10 +84,10 @@ Bạn kiểm lô của tôi: `tranhoangan`  Quyết định nhận được: **R
   - Nếu quên bật `edge_zone = true` ở vùng rìa fisheye (> 80% bán kính), khi huấn luyện hoặc đánh giá detector SVM quanh xe, các box bị méo nặng ở rìa không được lọc hoặc giảm trọng số (loss weighting), làm model học lệch bounding box regression trên vùng trung tâm.
 
 ## 8. (Tùy chọn, buffer) Từ polyline đến đích row-anchor
-Chạy kiểm tra trên ảnh `A01`, vạch `R1` (`lane#1@(829,715)`, nối từ `y = 714.9` lên `y = 430.1`):
+Chạy kiểm tra trên ảnh `A01`, vạch `R1` (`lane#1@(832,714)`, nối từ `y = 713.6` lên `y = 431.4`):
 | y | 720 | 680 | 640 | 600 | 560 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| x của chúng tôi (`nguyenkhoaminh`) | không có làn (tai `y=714.9` là `829.3`) | 803.0 | 773.5 | 747.2 | 723.0 |
+| x của chúng tôi (`nguyenkhoaminh`) | không có làn (tại `y=713.6` là `832.1`) | 803.8 | 771.9 | 748.2 | 724.6 |
 | x của bạn kia (`tranhoangan`) | không có làn (tại `y=715.1` là `830.8`) | 804.0 | 773.5 | 747.8 | 723.6 |
 
 Trả lời 3 câu:

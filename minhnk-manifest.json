@@ -4,12 +4,12 @@
   "guideline": "Road v1.0",
   "name": "minhnk",
   "revision": 2,
-  "created_at": "2026-11-20T10:03:49+00:00",
+  "created_at": "2026-11-20T10:13:15+00:00",
   "files": [
     {
       "file": "minhnk-front.zip",
-      "bytes": 2791,
-      "sha256": "b1b46626b9f097ac34bf237aa5452b6026633da9814bdbd43139a4db2b70c846",
+      "bytes": 2890,
+      "sha256": "6019b8d8b5f015e407c514d34ee9e800f1b91acfc5cd1914690357a9db2a3866",
       "contains_images": false,
       "images": 12,
       "images_unlabelled": 0,
@@ -25,8 +25,8 @@
     },
     {
       "file": "minhnk-fisheye.zip",
-      "bytes": 2127,
-      "sha256": "0a43fc257e21aa20a2e2b771b00915420c4e4f84c387115f1e11bd473461c576",
+      "bytes": 2185,
+      "sha256": "471c7c22688d1d75b0fa23b850c704d643b6953ab016de14f675b769fc0f673c",
       "contains_images": false,
       "images": 8,
       "images_unlabelled": 0,
